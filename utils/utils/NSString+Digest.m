@@ -15,7 +15,7 @@
     unsigned char digest[CC_SHA1_DIGEST_LENGTH];
     NSData *stringBytes = [self dataUsingEncoding:NSUTF8StringEncoding];
     if (CC_SHA1([stringBytes bytes], [stringBytes length], digest)) {
-        return [NSString stringWithFormat:@"%s", digest];
+        return [[NSString alloc] initWithBytes:digest length:sizeof(digest) encoding:NSUTF8StringEncoding];
     }
     return nil;
 }
