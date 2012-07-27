@@ -11,5 +11,6 @@
 @interface NSString (Digest)
 
 - (NSString *) sha1;
-
+- (NSString *) md5;
+    
 @end

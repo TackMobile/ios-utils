@@ -11,6 +11,8 @@
 
 @implementation NSString (SHA1)
 
+// Respectfully cargoculted from http://www.makebetterthings.com/iphone/how-to-get-md5-and-sha1-in-objective-c-ios-sdk/
+
 - (NSString *) sha1 {
     const char *cstr = [self cStringUsingEncoding:NSUTF8StringEncoding];
     NSData *data = [NSData dataWithBytes:cstr length:self.length];
@@ -19,12 +21,25 @@
 
     CC_SHA1(data.bytes, data.length, digest);
 
-    NSMutableString* output = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
+    NSMutableString *output = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
 
     for(int i = 0; i < CC_SHA1_DIGEST_LENGTH; i++)
-    [output appendFormat:@"%02x", digest[i]];
+        [output appendFormat:@"%02x", digest[i]];
 
     return output;
+}
+
+- (NSString *) md5 {
+    const char *cStr = [self UTF8String];
+    unsigned char digest[16];
+    CC_MD5( cStr, strlen(cStr), digest ); // This is the md5 call
+    
+    NSMutableString *output = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
+    
+    for(int i = 0; i < CC_MD5_DIGEST_LENGTH; i++)
+        [output appendFormat:@"%02x", digest[i]];
+    
+    return  output;
 }
 
 @end
