@@ -9,7 +9,15 @@
 #import "NSString+Digest.h"
 #import <CommonCrypto/CommonDigest.h>
 
-@implementation NSString (SHA1)
+@implementation NSString (Digest)
+
++ (NSString *) randomSHA1 {
+    NSInteger random = arc4random() % NSIntegerMax;
+    NSInteger ts = [[NSDate date] timeIntervalSince1970];
+    NSString *both = [NSString stringWithFormat:@"%d%d", random, ts];
+    NSString *hash = [both sha1];
+    return hash;
+}
 
 // Respectfully cargoculted from http://www.makebetterthings.com/iphone/how-to-get-md5-and-sha1-in-objective-c-ios-sdk/
 

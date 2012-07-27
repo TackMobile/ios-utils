@@ -10,6 +10,8 @@
 
 @interface NSString (Digest)
 
++ (NSString *) randomSHA1;
+    
 - (NSString *) sha1;
 - (NSString *) md5;
     
